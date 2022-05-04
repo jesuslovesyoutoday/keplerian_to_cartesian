@@ -36,9 +36,9 @@ class BodyPosition
             /*!
              * Constructor with cartesian coordinates
              * (for back convertation)
-             * @param r  - position vector
-             * @param dr - velocity vector
-             * @param mu - gravitational parameter, m^3*s^−2
+             * @param r  - position vector, m/s
+             * @param dr - velocity vector, m/s^2
+             * @param mu - gravitational parameter, m^3/s^2
              */
             BodyPosition(double* r, double* dr, double mu);
             

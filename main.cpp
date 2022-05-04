@@ -1,32 +1,33 @@
 #include "kepl_to_cart.h"
 #include <iostream>
+#include <cmath>
 
 int main() {
     
     double a = 57909226541.52;
     double e = 0.20563593;
-    double omega = 77.45779628 * 3.14/180; //1.35
-    double big_omega = 48.33076593 * 3.14 / 180; // 0.84
-    double i = 7.00497902 * 3.14/180; // 0.1221
-    double m0 = 252.25032350 * 3.14/180; // 4.76
+    double omega = 77.45779628 * M_PI/180; //1.35
+    double big_omega = 48.33076593 * M_PI/180; // 0.84
+    double i = 7.00497902 * M_PI/180; // 0.1221
+    double m0 = 252.25032350 * M_PI/180; // 4.76
     //double mu = 3.986 * 10e14 ;
-    //double mu = 1.327124 * 10e20;
-    double mu = 1.98e+30;
+    double mu = 1.327124 * 10e20;
+    //double mu = 1.98e+30;
     
     BodyPosition obj0 = BodyPosition(a, e, omega, big_omega, i, m0, mu);
     obj0.forwardConvertation();
     double* r  = obj0.getPosition();
     double* dr = obj0.getVelocity();
-    /*for (int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
-        std::cout << "v  " << r[i] << std::endl;
-        std::cout << "dv " << dr[i] << std::endl;   
-    }*/
+        std::cout << "r  " << r[i] << std::endl;
+        std::cout << "dr " << dr[i] << std::endl;   
+    }
     
     double  r0[3] = {5.60950066e+10, 1.84707796e+10, -3.63983421e+09};
     double dr0[3] = {-2.30603729e+04, 4.04106010e+04, 5.41772383e+03};
     
-    BodyPosition obj = BodyPosition(r0, dr0, mu);
+    BodyPosition obj = BodyPosition(r, dr, mu);
     obj.backConvertation();
     double a_ = obj.getA();
     double e_ = obj.getE();
