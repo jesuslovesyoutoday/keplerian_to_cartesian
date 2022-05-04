@@ -103,8 +103,12 @@ void BodyPosition::backConvertation() {
 
     auto h0 = vectorProduct(this->r, this->dr);
     double h[3] = {std::get<0>(h0), std::get<1>(h0), std::get<2>(h0)};
+    //auto e0 = vectorProduct(this->r, h);
     double mod_r = vectorMagnitude(this->r);
     double mod_dr = vectorMagnitude(this->dr);
+    //double e[3] = {std::get<0>(e0)/this->mu - this->r[0]/mod_r,
+    //               std::get<1>(e0)/this->mu - this->r[1]/mod_r,
+    //               std::get<2>(e0)/this->mu - this->r[2]/mod_r};
     double par_1 = mod_dr*mod_dr/this->mu - 1/mod_r;
     double par_2 = - scalarProduct(this->r, this->dr)/this->mu;
     double e[3]  = {par_1 * this->r[0] + par_2 * this->dr[0],
@@ -112,6 +116,7 @@ void BodyPosition::backConvertation() {
                     par_1 * this->r[2] + par_2 * this->dr[2]};
                     
     this->e = vectorMagnitude(e);
+    std::cout << this->e << std::endl;
     this->i = acos(h[2]/vectorMagnitude(h));
     
     double nu = 0;
@@ -126,8 +131,10 @@ void BodyPosition::backConvertation() {
     }
 
     double param = sqrt((1 + this->e)/(1 - this->e));
+    //double E = 2 * atan(tan(nu/2)/param);
     this->a = 1/(2/mod_r - (mod_dr*mod_dr)/this->mu);
     double E = acos((this->a - mod_r)/(this->a*this->e));
+    //double E = 2 * atan(tan(nu/2)/(sqrt((1+this->e)/(1-this->e))));
     this->m0 = E - (this->e * sin(E));
 
     double n[3] = {-h[1], h[0], 0};
